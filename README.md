@@ -24,6 +24,11 @@ A simple web application to calculate the Return on Investment (ROI) for marketi
 *   CSS
 *   Vanilla JavaScript
 
+### Design
+
+*   **Fonte:** Inter (importada do Google Fonts).
+*   **Visual System:** O design visual segue um system personalizado com foco em uma paleta de cores baseada em tons de roxo e verde, visando uma interface moderna e limpa.
+
 ## Project Structure
 
 *   `index.html`: Main HTML file.
