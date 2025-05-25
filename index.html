@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Hello World!</h1>
+
+    <section id="roi-calculator">
+        <h2>ROI Calculator</h2>
+        <div>
+            <label for="investmentAmount">Investment Amount:</label>
+            <input type="number" id="investmentAmount" placeholder="e.g., 1000">
+            <label for="revenueGenerated">Revenue Generated:</label>
+            <input type="number" id="revenueGenerated" placeholder="e.g., 1500">
+        </div>
+        <button id="calculateRoiBtn">Calculate ROI</button>
+        <div id="roiResult"></div>
+    </section>
+
+    <script src="app.js"></script>
+
+    <section id="dashboard">
+        <h2>Dashboard</h2>
+        <div id="summaryMetrics">
+            <p>Total Investment: <span id="totalInvestment">0.00</span></p>
+            <p>Total Revenue: <span id="totalRevenue">0.00</span></p>
+            <p>Overall ROI: <span id="overallRoi">0.00%</span></p>
+        </div>
+        <div id="calculationHistory">
+            <h3>Calculation History</h3>
+            <table id="historyTable">
+                <thead>
+                    <tr>
+                        <th>Investment</th>
+                        <th>Revenue</th>
+                        <th>ROI (%)</th>
+                    </tr>
+                </thead>
+                <tbody id="historyTableBody">
+                    <!-- History rows will be added here by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+</body>
+</html>
