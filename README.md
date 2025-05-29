@@ -17,6 +17,12 @@ A simple web application to calculate the Return on Investment (ROI) for marketi
     *   Calculation history is persisted in the browser using `localStorage`.
 *   **Modern & Clean UI:**
     *   Styled with CSS for a responsive and user-friendly experience.
+*   **Side Menu Navigation:**
+    *   Intuitive navigation via a side menu to access different application sections (ROI Calculator, Dashboard).
+*   **Multilingual Support (i18n):**
+    *   Interface available in Portuguese (pt) and English (en).
+    *   Defaults to Portuguese, with an option to switch to English using a button in the menu.
+    *   Language preference is saved in the browser's `localStorage`.
 
 ## Tech Stack
 
@@ -31,9 +37,10 @@ A simple web application to calculate the Return on Investment (ROI) for marketi
 
 ## Project Structure
 
-*   `index.html`: Main HTML file.
-*   `style.css`: Styles for the application.
-*   `app.js`: Core JavaScript logic for calculator and dashboard.
+*   `index.html`: Main HTML file for the single-page application.
+*   `style.css`: Styles for the application, including layout, theming, and responsiveness.
+*   `app.js`: Core JavaScript logic including navigation, DOM manipulation, ROI calculations, dashboard updates, and internationalization.
+*   `locales.js`: Stores translation strings for internationalization (i18n).
 *   `components/`: Directory for potential future JavaScript components (currently contains placeholders `ROICalculator.js` and `Dashboard.js` which are not actively importing separate logic but `app.js` handles their conceptual roles).
 *   `img/`: Directory for images (currently empty).
 *   `tests/`: Directory for unit tests.
@@ -44,6 +51,8 @@ A simple web application to calculate the Return on Investment (ROI) for marketi
 
 1.  **View the Application:**
     *   Simply open the `index.html` file in your web browser.
+    *   Use the side menu (accessible via the "hamburger" icon on the top-left) to navigate between the ROI Calculator and the Dashboard.
+    *   To change the language, use the dedicated button within the side menu.
 
 2.  **Run Unit Tests:**
     *   Open the `tests/test_runner.html` file in your web browser.

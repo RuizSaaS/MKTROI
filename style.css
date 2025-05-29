@@ -17,6 +17,8 @@
     /* Gradientes (podem ser usados diretamente ou como referência) */
     --gradient-primary: linear-gradient(to bottom, #A78BFA, #8B5CF6);
     --gradient-primary-soft: linear-gradient(to bottom, #C7AFFF, #A78BFA);
+
+    --menu-width: 250px;
 }
 
 * {
@@ -27,118 +29,245 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--primary-background-tint); /* Light background for the body */
+    background-color: var(--primary-background-tint);
     color: var(--neutral-text);
     line-height: 1.6;
+    /* padding: 20px; Body padding removed to allow full-width appContainer */
+    /* display: flex; flex-direction: column; align-items: center; These are now on appContainer or managed differently */
+    overflow-x: hidden; /* Prevent horizontal scroll when menu slides */
+}
+
+/* New Navigation Styles */
+#menuToggleBtn {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    background-color: var(--primary-brand);
+    color: var(--white);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.5em; /* Increased for better visibility of hamburger */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+#appContainer {
+    display: flex;
+    min-height: 100vh;
+    /* The padding that was on body can be moved to contentArea or individual sections if needed globally */
+}
+
+#sideMenu {
+    width: var(--menu-width);
+    background-color: var(--neutral-dark);
+    color: var(--white);
+    padding: 20px;
+    height: 100vh; /* Occupy full viewport height */
+    position: fixed; /* Fixed position */
+    left: 0;
+    top: 0;
+    transform: translateX(-100%); /* Initially hidden off-screen */
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000; /* Below toggle button but above content if overlapping */
+    overflow-y: auto; /* Allow scrolling if menu items exceed height */
+}
+
+#appContainer.menu-active #sideMenu {
+    transform: translateX(0);
+}
+
+.menu-item {
+    display: block;
+    padding: 12px 15px; /* Increased padding for better touch targets */
+    color: var(--primary-background-tint); /* Lighter color for contrast on dark menu */
+    text-decoration: none;
+    border-radius: 6px;
+    margin-bottom: 10px; /* Increased margin */
+    font-weight: 500; /* Medium weight for menu items */
+    transition: background-color 0.2s ease, color 0.2s ease;
+    text-align: left; /* Ensure text is aligned left for buttons acting as menu items */
+    width: 100%; /* Make it take full width of its container (.sideMenu padding area) */
+    border: none; /* Ensure buttons used as menu items have no border by default */
+    background: none; /* Ensure buttons used as menu items have no background by default */
+    cursor: pointer; /* Ensure cursor is pointer for buttons */
+}
+
+.menu-item:hover {
+    background-color: var(--primary-brand);
+    color: var(--white);
+}
+
+.menu-item.active { /* Style for active menu item (JS to add this class) */
+    background-color: var(--primary-brand);
+    color: var(--white);
+    font-weight: 600;
+}
+
+/* Specific styling for the language toggle button if needed, beyond .menu-item */
+#languageToggleBtn {
+    margin-top: 15px; /* Space above the button */
+    /* Example: Different background or border to distinguish it */
+    /* background-color: var(--accent-color); */ 
+    /* color: var(--white); */
+}
+/* Hover for languageToggleBtn will use .menu-item:hover by default if it has .menu-item class */
+/* If a different hover is needed: */
+/* #languageToggleBtn:hover {
+    background-color: var(--primary-dark);
+    color: var(--white);
+} */
+
+
+#contentArea {
+    flex-grow: 1;
+    padding: 20px; /* Add padding to content area */
+    margin-left: 0; /* Default when menu is closed */
+    transition: margin-left 0.3s ease-in-out;
+    width: 100%; /* Ensure it takes full width initially */
+}
+
+#appContainer.menu-active #contentArea {
+    margin-left: var(--menu-width);
+    /* width: calc(100% - var(--menu-width)); Optional: if fixed width is needed for contentArea */
+}
+
+
+/* Existing styles below, ensure they are not conflicting with new layout */
+/* Remove body's direct flex styling if appContainer handles main layout */
+/* body {
     padding: 20px;
     display: flex;
-    flex-direction: column; /* Stack sections vertically */
-    align-items: center; /* Center content */
+    flex-direction: column; 
+    align-items: center; 
+} */
+
+/* Adjust .container if it's still used, or ensure sections take full width in contentArea */
+.container { /* This might be redundant now or needs rethinking */
+    width: 100%; /* Sections will be managed by contentArea's padding */
+    max-width: 900px; 
+    margin: 0 auto; 
 }
 
-h1, h2, h3 {
+/* Ensure sections are block for proper display by JS */
+.main-section {
+    /* display: none; is handled by inline style from HTML/JS */
+    /* Styles for individual sections like background, padding, etc., are below */
+}
+
+
+h1, h2, h3 { /* Keep general heading styles */
     margin-bottom: 0.75em;
-    /* Color will be set more specifically below */
 }
 
-h1 { /* Main page title */
-    font-size: 2.5em;
+h1 { /* Main page title - this is now inside welcomeMessage or sections */
+    font-size: 2.5em; /* This might be large if #welcomeMessage h2 is the main title */
     text-align: center;
     margin-bottom: 1em;
     color: var(--neutral-dark);
-    font-weight: 700; /* Bold */
+    font-weight: 700;
 }
 
-h2 { /* Section titles */
+/* Styles for h2, h3 in sections */
+section h2, #welcomeMessage h2 { /* Target h2 within sections and welcome message */
     font-size: 1.8em;
-    border-bottom: 2px solid var(--neutral-borders); /* Verified: already as per previous step */
+    border-bottom: 2px solid var(--neutral-borders);
     padding-bottom: 0.3em;
-    margin-top: 1em;
+    margin-top: 1em; /* Consider removing for welcomeMessage if it's the first thing */
     color: var(--primary-dark);
-    font-weight: 600; /* SemiBold */
+    font-weight: 600;
+}
+#welcomeMessage h2 {
+    margin-top: 0; /* Example: remove top margin for welcome message title */
+    border-bottom: none; /* Example: remove border for welcome message title */
 }
 
-h3 { /* Sub-headings within sections */
+
+section h3 { /* Target h3 within sections */
     font-size: 1.4em;
     color: var(--neutral-dark);
-    font-weight: 600; /* SemiBold */
+    font-weight: 600;
 }
 
-/* Layout */
-.container {
-    width: 100%;
-    max-width: 900px; /* Max width for main content */
-    margin: 0 auto; /* Center container */
-}
 
-section {
-    background-color: var(--white); /* Verified */
-    padding: 24px; /* Verified: 24px */
+section { /* These are .main-section elements */
+    background-color: var(--white); 
+    padding: 24px; 
     margin-bottom: 25px;
-    border-radius: 12px; /* Verified: 12px */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Verified */
-    border: 1px solid var(--neutral-borders); /* Verified */
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    border: 1px solid var(--neutral-borders); 
+}
+#welcomeMessage { /* Ensure welcomeMessage also gets card styling if desired */
+    background-color: var(--white); 
+    padding: 24px; 
+    margin-bottom: 25px;
+    border-radius: 12px; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+    border: 1px solid var(--neutral-borders);
 }
 
-/* Forms: Input fields and Buttons */
+
+/* Forms: Input fields and Buttons (should remain largely the same) */
 label {
     display: block;
     margin-bottom: 8px;
-    font-weight: 500; /* Medium */
-    color: var(--neutral-text); /* Updated label color */
+    font-weight: 500; 
+    color: var(--neutral-text); 
 }
 
 input[type="number"],
-input[type="text"] { /* Added text type for future use */
+input[type="text"] { 
     width: 100%;
-    padding: 10px 12px; /* Verified: 10px 12px */
+    padding: 10px 12px; 
     margin-bottom: 15px;
-    border: 1px solid var(--neutral-borders); /* Verified */
-    border-radius: 8px; /* Verified: 8px */
+    border: 1px solid var(--neutral-borders); 
+    border-radius: 8px; 
     font-size: 1em;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    background-color: var(--primary-input-background); /* Verified */
-    color: var(--neutral-text); /* Verified */
+    background-color: var(--primary-input-background); 
+    color: var(--neutral-text); 
 }
 
 input[type="number"]:focus,
 input[type="text"]:focus {
-    border-color: var(--primary-brand); /* Verified */
+    border-color: var(--primary-brand); 
     outline: none;
-    box-shadow: 0 0 0 2px var(--primary-light); /* Verified */
+    box-shadow: 0 0 0 2px var(--primary-light); 
 }
 
-button {
-    background-color: var(--primary-brand); /* Verified */
-    color: var(--white); /* Verified */
-    padding: 12px 24px; /* Verified: 12px 24px */
-    border: none; /* Verified */
-    border-radius: 8px; /* Verified: 8px */
+button#calculateRoiBtn { /* Specific to calculator button if general button style needs override */
+    background-color: var(--primary-brand); 
+    color: var(--white); 
+    padding: 12px 24px; 
+    border: none; 
+    border-radius: 8px; 
     font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.1s ease;
-    font-weight: 600; /* Verified: 600 */
+    font-weight: 600; 
 }
 
-button:hover {
-    background-color: var(--primary-dark); /* Verified */
+button#calculateRoiBtn:hover {
+    background-color: var(--primary-dark); 
 }
 
-button:active {
-    transform: translateY(1px); /* Verified */
+button#calculateRoiBtn:active {
+    transform: translateY(1px); 
 }
 
 /* ROI Calculator Specific Styling */
 #roi-calculator div {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    gap: 20px; /* Space between input groups */
-    align-items: flex-end; /* Align items to bottom for button alignment */
+    flex-wrap: wrap; 
+    gap: 20px; 
+    align-items: flex-end; 
 }
 
-#roi-calculator div > div { /* Target inner divs holding label and input */
-    flex: 1; /* Allow them to grow */
-    min-width: 200px; /* Minimum width before wrapping */
+#roi-calculator div > div { 
+    flex: 1; 
+    min-width: 200px; 
 }
 
 
@@ -147,111 +276,123 @@ button:active {
     font-size: 1.2em;
     font-weight: bold;
     padding: 15px;
-    background-color: var(--primary-input-background); /* Verified */
-    border-left: 5px solid var(--primary-brand); /* Verified */
-    border-radius: 8px; /* Verified: Consistent with other inputs/buttons */
-    color: var(--primary-dark); /* Changed text color for emphasis */
+    background-color: var(--primary-input-background); 
+    border-left: 5px solid var(--primary-brand); 
+    border-radius: 8px; 
+    color: var(--primary-dark); 
 }
 
 /* Dashboard Styling */
 #summaryMetrics {
     display: flex;
-    justify-content: space-around; /* Distribute metrics evenly */
+    justify-content: space-around; 
     flex-wrap: wrap;
-    gap: 15px; /* Space between metric items */
+    gap: 15px; 
     margin-bottom: 25px;
     padding: 20px;
-    background-color: var(--primary-background-tint); /* Verified */
-    border-radius: 12px; /* Verified: Consistent with other cards */
-    border: 1px solid var(--neutral-borders); /* Verified */
+    background-color: var(--primary-background-tint); 
+    border-radius: 12px; 
+    border: 1px solid var(--neutral-borders); 
 }
 
 #summaryMetrics p {
     font-size: 1.1em;
     color: var(--neutral-text);
     margin: 5px 0;
-    font-weight: 400; /* Regular */
+    font-weight: 400; 
 }
 
 #summaryMetrics span {
     font-weight: bold;
-    color: var(--primary-dark); /* Changed from accent-color to primary-dark for better contrast */
+    color: var(--primary-dark); 
 }
 
 /* Dashboard Table Styling */
 #historyTable {
     width: 100%;
-    border-collapse: collapse; /* Clean table lines */
+    border-collapse: collapse; 
     margin-top: 20px;
 }
 
 #historyTable th,
 #historyTable td {
-    padding: 10px 12px; /* Verified for td, will be overridden for th */
-    text-align: left; /* Verified for td, will be overridden for th */
-    font-weight: 400; /* Regular for td */
-    border-bottom: 1px solid var(--neutral-borders); /* This applies to both th and td initially */
+    padding: 10px 12px; 
+    text-align: left; 
+    font-weight: 400; 
+    border-bottom: 1px solid var(--neutral-borders); 
 }
 
 #historyTable th {
-    background-color: var(--primary-brand); /* Verified */
-    color: var(--white); /* Verified */
-    font-weight: 600; /* SemiBold */
-    padding: 10px 12px; /* Verified */
-    text-align: left; /* Verified */
-    border-bottom: 2px solid var(--primary-dark); /* Changed to 2px as per instructions */
+    background-color: var(--primary-brand); 
+    color: var(--white); 
+    font-weight: 600; 
+    /* padding: 10px 12px;  Already covered by above */
+    /* text-align: left; Already covered by above */
+    border-bottom: 2px solid var(--primary-dark); 
 }
 
 #historyTable tbody tr:nth-child(even) {
-    background-color: var(--white); /* All rows white - simplified */
+    background-color: var(--white); 
 }
-#historyTable tbody tr:nth-child(odd) { /* Ensuring odd rows are also white */
+#historyTable tbody tr:nth-child(odd) { 
     background-color: var(--white);
 }
 
-#historyTable tbody tr {
-    /* border-bottom property is now on the cells (td/th) */
-}
-
-#historyTable tbody tr:last-child td { /* Remove bottom border from cells of the last row */
+#historyTable tbody tr:last-child td { 
     border-bottom: none;
 }
 
 #historyTable tbody tr:hover {
-    background-color: var(--primary-input-background); /* Verified */
+    background-color: var(--primary-input-background); 
 }
 
 /* Text Links (Placeholder - no direct elements to apply in current HTML) */
-a {
+a { /* General link styling, might affect menu items if not overridden */
     color: var(--primary-brand);
     text-decoration: none;
-    font-weight: 500; /* Medium */
+    /* font-weight: 500; Let menu-item class handle its own weight */
 }
 
-a:hover {
+a:hover { /* General link hover */
     text-decoration: underline;
 }
 
 /* Responsiveness */
 @media (max-width: 768px) {
-    body {
-        padding: 10px;
+    /* body {
+        padding: 10px;  Padding now on contentArea or sections
+    } */
+    #contentArea {
+        padding: 15px; /* Reduced padding for content area on smaller screens */
+        margin-left: 0 !important; /* Ensure content area takes full width when menu is overlayed or hidden */
     }
+    #appContainer.menu-active #contentArea {
+         margin-left: 0; /* On smaller screens, menu might be an overlay */
+    }
+
+
+    #sideMenu {
+        /* On smaller screens, menu might take full width or be an overlay */
+        /* If it's an overlay, width can be var(--menu-width) or more */
+        /* transform: translateX(-100%); is already set */
+    }
+    /* #appContainer.menu-active #sideMenu { transform: translateX(0); } is already set */
+
 
     h1 {
         font-size: 2em;
     }
 
-    section {
+    section, #welcomeMessage { /* Apply responsive padding to all card-like sections */
         padding: 15px;
     }
 
     #roi-calculator div {
-        flex-direction: column; /* Stack inputs vertically */
+        flex-direction: column; 
         gap: 0;
     }
      #roi-calculator div > div {
-        margin-bottom: 15px; /* Add margin between stacked input groups */
+        margin-bottom: 15px; 
     }
 
 
@@ -265,39 +406,51 @@ a:hover {
     }
 
     input[type="number"],
-    button {
-        font-size: 0.95em; /* Slightly smaller font for smaller screens */
+    button#calculateRoiBtn { /* Ensure specificity */
+        font-size: 0.95em; 
     }
 }
 
 @media (max-width: 480px) {
+    #menuToggleBtn {
+        top: 10px;
+        left: 10px;
+        padding: 6px 10px;
+        font-size: 1.3em;
+    }
+
     h1 {
         font-size: 1.8em;
     }
 
-    h2 {
+    section h2, #welcomeMessage h2 {
         font-size: 1.5em;
     }
 
-    h3 {
+    section h3 {
         font-size: 1.2em;
     }
 
+    /* General button full width - this was too broad.
+       Only apply to specific buttons if needed, or use a class.
+       For now, removing this general rule.
     button {
-        width: 100%; /* Make button full width */
-    }
+        width: 100%; 
+    } */
+    /* If calculateRoiBtn should be full width on mobile: */
+    /* button#calculateRoiBtn { width: 100%; } */
+
 
     #historyTable th,
     #historyTable td {
-        padding: 8px; /* Reduce padding in table cells */
+        padding: 8px; 
         font-size: 0.9em;
     }
-    /* Force table to not be like tables anymore */
+    
 	#historyTable, #historyTable thead, #historyTable tbody, #historyTable th, #historyTable td, #historyTable tr {
 		display: block;
 	}
 
-	/* Hide table headers (but not display: none;, for accessibility) */
 	#historyTable thead tr {
 		position: absolute;
 		top: -9999px;
@@ -307,7 +460,6 @@ a:hover {
 	#historyTable tr { border: 1px solid var(--neutral-borders); margin-bottom:5px;}
 
 	#historyTable td {
-		/* Behave  like a "row" */
 		border: none;
 		border-bottom: 1px solid var(--neutral-borders);
 		position: relative;
@@ -317,9 +469,7 @@ a:hover {
 	}
 
 	#historyTable td:before {
-		/* Now like a table header */
 		position: absolute;
-		/* Top/left values mimic padding */
 		top: 6px;
 		left: 6px;
 		width: 45%;
@@ -329,7 +479,6 @@ a:hover {
         font-weight:bold;
 	}
 
-	/* Label data before cells */
 	#historyTable td:nth-of-type(1):before { content: "Investment"; }
 	#historyTable td:nth-of-type(2):before { content: "Revenue"; }
 	#historyTable td:nth-of-type(3):before { content: "ROI (%)"; }
@@ -337,6 +486,21 @@ a:hover {
 
 /* Placeholder styling */
 input::placeholder {
-    font-weight: 400; /* Regular */
+    font-weight: 400; 
     color: var(--neutral-text-light);
+}
+
+/* Welcome Message Specific Styling */
+#welcomeMessage {
+    text-align: center; /* Center the text */
+}
+
+#welcomeMessage h2 {
+    margin-bottom: 0.5em; /* Adjust spacing for welcome message */
+}
+
+#welcomeMessage p {
+    font-size: 1.1em;
+    color: var(--neutral-text);
+    margin-bottom: 1em;
 }

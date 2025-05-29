@@ -3,48 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title data-translate-key="app_title">ROI Marketing App</title> <!-- Added key for app title -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hello World!</h1>
+    <button id="menuToggleBtn">☰</button>
 
-    <section id="roi-calculator">
-        <h2>ROI Calculator</h2>
-        <div>
-            <label for="investmentAmount">Investment Amount:</label>
-            <input type="number" id="investmentAmount" placeholder="e.g., 1000">
-            <label for="revenueGenerated">Revenue Generated:</label>
-            <input type="number" id="revenueGenerated" placeholder="e.g., 1500">
-        </div>
-        <button id="calculateRoiBtn">Calculate ROI</button>
-        <div id="roiResult"></div>
-    </section>
+    <div id="appContainer">
+        <nav id="sideMenu">
+            <a href="#" data-section="roi-calculator" class="menu-item" data-translate-key="menu_roiCalculator">Calculadora ROI</a>
+            <a href="#" data-section="dashboard" class="menu-item" data-translate-key="menu_dashboard">Dashboard</a>
+            <hr style="border-color: var(--neutral-text-light); margin: 15px 0;"> <!-- Opcional: um divisor visual -->
+            <button id="languageToggleBtn" class="menu-item" data-translate-key="language_toggle_button">Switch to English</button>
+        </nav>
 
+        <main id="contentArea">
+            <div id="welcomeMessage" class="main-section"> <!-- Visível por padrão -->
+                <h2 data-translate-key="welcome_title">Bem-vindo ao ROI Marketing App!</h2>
+                <p data-translate-key="welcome_message">Use o menu para navegar até a Calculadora de ROI ou o Dashboard.</p>
+            </div>
+
+            <section id="roi-calculator" class="main-section" style="display:none;">
+                <h2 data-translate-key="section_roiCalculator_title">ROI Calculator</h2>
+                <div>
+                    <label for="investmentAmount" data-translate-key="calculator_investmentAmountLabel">Investment Amount:</label>
+                    <input type="number" id="investmentAmount" placeholder="e.g., 1000" data-translate-key="calculator_investmentAmountPlaceholder">
+                    <label for="revenueGenerated" data-translate-key="calculator_revenueGeneratedLabel">Revenue Generated:</label>
+                    <input type="number" id="revenueGenerated" placeholder="e.g., 1500" data-translate-key="calculator_revenueGeneratedPlaceholder">
+                </div>
+                <button id="calculateRoiBtn" data-translate-key="calculator_calculateButton">Calculate ROI</button>
+                <div id="roiResult">
+                    <!-- ROI result prefix will be handled by JS if needed, or can be part of the dynamic content -->
+                </div>
+            </section>
+
+            <section id="dashboard" class="main-section" style="display:none;">
+                <h2 data-translate-key="section_dashboard_title">Dashboard</h2>
+                <div id="summaryMetrics">
+                    <p><span data-translate-key="dashboard_totalInvestmentLabel">Total Investment:</span> <span id="totalInvestment">0.00</span></p>
+                    <p><span data-translate-key="dashboard_totalRevenueLabel">Total Revenue:</span> <span id="totalRevenue">0.00</span></p>
+                    <p><span data-translate-key="dashboard_overallRoiLabel">Overall ROI:</span> <span id="overallRoi">0.00%</span></p>
+                </div>
+                <div id="calculationHistory">
+                    <h3 data-translate-key="dashboard_historyTitle">Calculation History</h3>
+                    <table id="historyTable">
+                        <thead>
+                            <tr>
+                                <th data-translate-key="dashboard_historyTableHeadInvestment">Investment</th>
+                                <th data-translate-key="dashboard_historyTableHeadRevenue">Revenue</th>
+                                <th data-translate-key="dashboard_historyTableHeadRoi">ROI (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <!-- History rows will be added here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="locales.js"></script>
     <script src="app.js"></script>
-
-    <section id="dashboard">
-        <h2>Dashboard</h2>
-        <div id="summaryMetrics">
-            <p>Total Investment: <span id="totalInvestment">0.00</span></p>
-            <p>Total Revenue: <span id="totalRevenue">0.00</span></p>
-            <p>Overall ROI: <span id="overallRoi">0.00%</span></p>
-        </div>
-        <div id="calculationHistory">
-            <h3>Calculation History</h3>
-            <table id="historyTable">
-                <thead>
-                    <tr>
-                        <th>Investment</th>
-                        <th>Revenue</th>
-                        <th>ROI (%)</th>
-                    </tr>
-                </thead>
-                <tbody id="historyTableBody">
-                    <!-- History rows will be added here by JavaScript -->
-                </tbody>
-            </table>
-        </div>
-    </section>
 </body>
 </html>
