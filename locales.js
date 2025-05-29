@@ -31,9 +31,8 @@ const translations = {
         // Erros e Mensagens (adicionar mais conforme necessário)
         error_invalidInputs: "Por favor, insira números válidos.",
         error_investmentZero: "O investimento não pode ser zero para o cálculo do ROI.",
-        error_emptyInputs: "Por favor, insira ambos os valores de investimento e receita.", // Added from existing app.js
-        // Botão de Idioma (será adicionado depois, mas já podemos prever)
-        language_toggle_button: "Switch to English" // Em PT, o botão mostra a opção de mudar para EN
+        error_emptyInputs: "Por favor, insira ambos os valores de investimento e receita." // Added from existing app.js
+        // language_toggle_button key removed
     },
     // Inglês
     en: {
@@ -67,9 +66,8 @@ const translations = {
         // Errors and Messages
         error_invalidInputs: "Please enter valid numbers.",
         error_investmentZero: "Investment cannot be zero for ROI calculation.",
-        error_emptyInputs: "Please enter both investment and revenue amounts.", // Added from existing app.js
-        // Language Toggle Button
-        language_toggle_button: "Mudar para Português" // In EN, the button shows the option to switch to PT
+        error_emptyInputs: "Please enter both investment and revenue amounts." // Added from existing app.js
+        // language_toggle_button key removed
     }
 };
 

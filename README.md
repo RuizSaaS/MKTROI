@@ -21,7 +21,7 @@ A simple web application to calculate the Return on Investment (ROI) for marketi
     *   Intuitive navigation via a side menu to access different application sections (ROI Calculator, Dashboard).
 *   **Multilingual Support (i18n):**
     *   Interface available in Portuguese (pt) and English (en).
-    *   Defaults to Portuguese, with an option to switch to English using a button in the menu.
+    *   Defaults to Portuguese. Language switching is done by clicking the flag icons (Brazil/USA) located at the top of the side menu, next to the app name.
     *   Language preference is saved in the browser's `localStorage`.
 
 ## Tech Stack
@@ -55,7 +55,7 @@ A simple web application to calculate the Return on Investment (ROI) for marketi
 1.  **View the Application:**
     *   Simply open the `index.html` file in your web browser.
     *   Use the side menu (accessible via the "hamburger" icon on the top-left) to navigate between the ROI Calculator and the Dashboard.
-    *   To change the language, use the dedicated button within the side menu.
+    *   To change the language, click the desired flag icon (Brazil for Portuguese, USA for English) in the header of the side menu.
 
 2.  **Run Unit Tests:**
     *   Open the `tests/test_runner.html` file in your web browser.

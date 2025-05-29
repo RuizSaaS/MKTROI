@@ -64,6 +64,18 @@
         #appContainer.menu-active #sideMenu {
             transform: translateX(0); /* Handles mobile menu visibility */
         }
+
+        /* Language Flag Active/Inactive States */
+        .lang-flag.active {
+            opacity: 1;
+            box-shadow: 0 0 0 2px var(--golden-hive); /* Highlight with a golden border */
+        }
+        .lang-flag.inactive {
+            opacity: 0.6; 
+        }
+        .lang-flag.inactive:hover {
+            opacity: 0.85; 
+        }
     </style>
 </head>
 <body class="bg-abyss-blue text-light-nectar">
@@ -72,14 +84,36 @@
     </button>
 
     <div id="appContainer" class="flex min-h-screen">
-        <nav id="sideMenu" class="bg-deep-slate text-light-nectar w-64 p-5 h-screen fixed inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out z-40 md:relative md:translate-x-0 md:block">
-            <div class="text-center py-4 mb-4">
-                <h1 class="text-2xl font-bold text-golden-hive" data-translate-key="app_title_short">ROI App</h1>
+        <nav id="sideMenu" class="bg-deep-slate text-light-nectar w-64 h-screen fixed inset-y-0 left-0 transform -translate-x-full transition-transform duration-300 ease-in-out z-40 md:relative md:translate-x-0 flex flex-col">
+            <div class="flex items-center justify-between p-4 border-b border-honeycomb-gray">
+                <h1 class="text-xl font-semibold text-golden-hive" data-translate-key="app_title_short">ROI App</h1>
+                <div class="flex space-x-2">
+                    <!-- SVG da Bandeira do Brasil -->
+                    <svg id="langBtn-pt" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 9 6" class="h-5 w-8 cursor-pointer rounded-sm lang-flag transition-opacity duration-200 ease-in-out"> {/* Adjusted size: h-5 w-8 */}
+                        <clipPath id="tBr">
+                            <path d="M0 0h9v6H0z"/>
+                        </clipPath>
+                        <path d="M0 0h9v6H0z" fill="#009739" clip-path="url(#tBr)"/>
+                        <path d="M4.5 1.2l-2.47 1.8L4.5 4.8l2.47-1.8z" fill="#FEDD00"/>
+                        <circle cx="4.5" cy="3" r="1.06" fill="#002776"/>
+                    </svg>
+                    <!-- SVG da Bandeira dos EUA -->
+                    <svg id="langBtn-en" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19 10" class="h-5 w-8 cursor-pointer rounded-sm lang-flag transition-opacity duration-200 ease-in-out"> {/* Adjusted size: h-5 w-8 */}
+                        <path fill="#fff" d="M0 0h19v10H0z"/>
+                        <path fill="#b22234" d="M0 0h19v1H0zm0 2h19v1H0zm0 4h19v1H0zm0 6h19v1H0zm0 8h19v1H0z"/>
+                        <path fill="#3c3b6e" d="M0 0h9.5v5H0z"/>
+                        <g fill="#fff">
+                            <path d="M1.9 1.15l.29.89H3l-.76.55.29.89L1.9 3l-.76.55.29-.89-.76-.55h.87zM1.9 2.65l.29.89H3l-.76.55.29.89L1.9 4.5l-.76.55.29-.89-.76-.55h.87zM4.75 1.15l.29.89h.88l-.76.55.29.89L4.75 3l-.76.55.29-.89-.76-.55h.88zM4.75 2.65l.29.89h.88l-.76.55.29.89L4.75 4.5l-.76.55.29-.89-.76-.55h.88zM7.6 1.15l.29.89H8.7l-.76.55.29.89L7.6 3l-.76.55.29-.89-.76-.55H7.3zM7.6 2.65l.29.89H8.7l-.76.55.29.89L7.6 4.5l-.76.55.29-.89-.76-.55H7.3z"/>
+                            <path d="M.95 1.9l.29.89h.87l-.76.55.29.89L.95 3.75l-.76.55.29-.89L0 3.33h.87zM.95 3.4l.29.89h.87l-.76.55.29.89L.95 5.25l-.76.55.29-.89L0 4.83h.87zM3.82 1.9l.29.89H5l-.76.55.29.89L3.82 3.75l-.76.55.29-.89-.76-.55H3.7zM3.82 3.4l.29.89H5l-.76.55.29.89L3.82 5.25l-.76.55.29-.89-.76-.55H3.7zM6.67 1.9l.29.89h.88l-.76.55.29.89L6.67 3.75l-.76.55.29-.89-.76-.55h.88zM6.67 3.4l.29.89h.88l-.76.55.29.89L6.67 5.25l-.76.55.29-.89-.76-.55h.88z"/>
+                        </g>
+                    </svg>
+                </div>
             </div>
-            <a href="#" data-section="roi-calculator" class="menu-item block py-2.5 px-4 rounded hover:bg-golden-hive hover:text-abyss-blue text-pollen-dust" data-translate-key="menu_roiCalculator">Calculadora ROI</a>
-            <a href="#" data-section="dashboard" class="menu-item block py-2.5 px-4 rounded hover:bg-golden-hive hover:text-abyss-blue text-pollen-dust" data-translate-key="menu_dashboard">Dashboard</a>
-            <hr class="border-honeycomb-gray my-4">
-            <button id="languageToggleBtn" class="menu-item block py-2.5 px-4 rounded bg-golden-hive text-abyss-blue hover:bg-bright-pollen w-full text-center" data-translate-key="language_toggle_button">Switch to English</button>
+            <div class="flex-grow p-4 overflow-y-auto"> {/* Container for menu items to allow scrolling if needed */}
+                <a href="#" data-section="roi-calculator" class="menu-item block py-2.5 px-4 rounded hover:bg-golden-hive hover:text-abyss-blue text-pollen-dust" data-translate-key="menu_roiCalculator">Calculadora ROI</a>
+                <a href="#" data-section="dashboard" class="menu-item block py-2.5 px-4 rounded hover:bg-golden-hive hover:text-abyss-blue text-pollen-dust" data-translate-key="menu_dashboard">Dashboard</a>
+            </div>
+            <!-- O antigo botão de toggle e hr foram removidos -->
         </nav>
 
         <main id="contentArea" class="flex-1 p-6 md:p-10 transition-all duration-300 ease-in-out md:ml-64">
