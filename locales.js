@@ -2,6 +2,7 @@ const translations = {
     // Português
     pt: {
         app_title: "App de Marketing ROI",
+        app_title_short: "ROI App",
         // Menu
         menu_roiCalculator: "Calculadora ROI",
         menu_dashboard: "Dashboard",
@@ -37,6 +38,7 @@ const translations = {
     // Inglês
     en: {
         app_title: "ROI Marketing App",
+        app_title_short: "ROI App",
         // Menu
         menu_roiCalculator: "ROI Calculator",
         menu_dashboard: "Dashboard",

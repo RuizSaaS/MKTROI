@@ -27,18 +27,21 @@ A simple web application to calculate the Return on Investment (ROI) for marketi
 ## Tech Stack
 
 *   HTML
-*   CSS
+*   **Tailwind CSS (via CDN):** Utilized for the primary styling and layout of the application.
 *   Vanilla JavaScript
+*   **Custom CSS:** Minimal custom styles (for specific design elements like hexagons, custom color classes, and font imports) are included in a `<style>` block within `index.html`.
 
-### Design
+### Design System: "Abyss/Hive"
 
-*   **Fonte:** Inter (importada do Google Fonts).
-*   **Visual System:** O design visual segue um system personalizado com foco em uma paleta de cores baseada em tons de roxo e verde, visando uma interface moderna e limpa.
+*   **Framework:** The "Abyss/Hive" design system is implemented using Tailwind CSS utility classes and a few custom CSS definitions.
+*   **Palette:** Features a dark, high-contrast color scheme with "Abyss Blue" (deep blue/black) and "Deep Slate" (dark gray) as base colors, accented by "Golden Hive" (yellow/gold) and "Bright Pollen" (orange/amber) for highlights and calls to action. Supporting colors include "Light Nectar", "White Honey", "Honeycomb Gray", and "Pollen Dust".
+*   **Typography:** Uses the 'Inter' font (imported from Google Fonts) for a clean and modern look.
+*   **Visual Elements:** Incorporates thematic visual elements such as hexagons to enhance the user interface.
 
 ## Project Structure
 
-*   `index.html`: Main HTML file for the single-page application.
-*   `style.css`: Styles for the application, including layout, theming, and responsiveness.
+*   `index.html`: Main HTML file for the single-page application. Contains the structure and the primary block of custom CSS.
+*   `style.css`: Emptied; styles are primarily via Tailwind CSS and an inline `<style>` block in `index.html` for customizations.
 *   `app.js`: Core JavaScript logic including navigation, DOM manipulation, ROI calculations, dashboard updates, and internationalization.
 *   `locales.js`: Stores translation strings for internationalization (i18n).
 *   `components/`: Directory for potential future JavaScript components (currently contains placeholders `ROICalculator.js` and `Dashboard.js` which are not actively importing separate logic but `app.js` handles their conceptual roles).
